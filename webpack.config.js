@@ -1,15 +1,17 @@
 const path= require('path') ;
 
-const createEntry=name=>path.resolve(__dirname, './src', `${name}.js`)
-const createOutputPath=name=>path.resolve(__dirname, './dist')
-
 module.exports=(env , argv)=>({
 
-    entry: [ createEntry('i1'), createEntry('i2') ],
+    mode:argv.mode || 'production',
+
+    entry: {
+        index: [ path.resolve(__dirname, './src', `i1.js`), path.resolve(__dirname, './src', `i2.js`) ]
+    },
 
     output: {
-        path: createOutputPath() ,
-        filename: '[name].js'
+        path: path.resolve(__dirname, './dist') ,
+        chunkFilename: '[name].bundle.js',
+        filename: '[name].bundle.js'
     } ,
 
     module:{
@@ -20,11 +22,16 @@ module.exports=(env , argv)=>({
                     options: {
                         presets:[
                             [ "@babel/preset-env", {
-                                useBuiltIns: "usage" , // or "entry" or false
-                                corejs: { version: 3, proposals: false } ,
+                                useBuiltIns: "usage" , // "usage" or "entry" or false
+                                corejs: { version: 3, proposals: true } ,
                                 targets: "last 2 versions"
                             }] ,
                             "@babel/preset-react"
+                        ]
+                        , plugins: [
+                            [ "@babel/plugin-proposal-class-properties" , { loose: true } ] ,
+                            [ "@babel/plugin-proposal-object-rest-spread" , { loose: true, useBuiltIns: true } ],
+                            "@babel/plugin-syntax-dynamic-import"
                         ]
                     }
                 },
