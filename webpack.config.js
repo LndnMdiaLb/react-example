@@ -18,7 +18,14 @@ module.exports=(env , argv)=>({
                 use: {
                     loader:'babel-loader' ,
                     options: {
-                        presets:["@babel/preset-react"]
+                        presets:[
+                            [ "@babel/preset-env", {
+                                useBuiltIns: "usage" , // or "entry" or false
+                                corejs: { version: 3, proposals: false } ,
+                                targets: "last 2 versions"
+                            }] ,
+                            "@babel/preset-react"
+                        ]
                     }
                 },
                 test: /\.m?js$/ ,
