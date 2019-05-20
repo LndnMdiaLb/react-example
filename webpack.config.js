@@ -5,12 +5,11 @@ module.exports=(env , argv)=>({
     mode:argv.mode || 'production',
 
     entry: {
-        index: [ path.resolve(__dirname, './src', `i1.js`), path.resolve(__dirname, './src', `i2.js`) ]
-    },
+        index: path.resolve(__dirname , './src' , `index.js`)
+    } ,
 
     output: {
-        path: path.resolve(__dirname, './dist') ,
-        chunkFilename: '[name].bundle.js',
+        path: path.resolve(__dirname , './dist') ,
         filename: '[name].bundle.js'
     } ,
 
@@ -30,7 +29,7 @@ module.exports=(env , argv)=>({
                         ]
                         , plugins: [
                             [ "@babel/plugin-proposal-class-properties" , { loose: true } ] ,
-                            [ "@babel/plugin-proposal-object-rest-spread" , { loose: true, useBuiltIns: true } ],
+                            [ "@babel/plugin-proposal-object-rest-spread" , { loose: true, useBuiltIns: true } ] ,
                             "@babel/plugin-syntax-dynamic-import"
                         ]
                     }
