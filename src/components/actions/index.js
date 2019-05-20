@@ -3,18 +3,25 @@
     dispatch results to the redux store
 */
 
-const path='localhost://5555/loadData' ;
+/* action constants */
 
-const headers= {
-    'Accept': 'application/json'
-    //, 'Authorization': token
-} ;
+export const LOADING ='loading';
+export const READY='ready';
+export const ERROR='error' ;
 
 
 /*  thunk action        */
 
 export const getData=()=> async (dispatch)=>{
     try {
+
+        const path='localhost://5555/loadData' ;
+
+        const headers= {
+            'Accept': 'application/json'
+            //, 'Authorization': token
+        } ;
+
         /* catches */
         // const   data= await fetch( path , { method: 'GET' , headers }) ,
         //         json= await data.json() ;
@@ -38,6 +45,6 @@ export const getData=()=> async (dispatch)=>{
 
 /*  action creator      */
 
-export const dataLoading=error=>({ type:'loading' }) ;
-export const dataError=error=>({ type:'dataError', error }) ;
-export const dataLoaded=entries=>({ type:'loaded', entries }) ;
+export const dataLoading=error=>({ type:LOADING }) ;
+export const dataError=error=>({ type:ERROR, error }) ;
+export const dataLoaded=entries=>({ type:READY, entries }) ;

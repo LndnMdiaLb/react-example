@@ -1,3 +1,6 @@
+import {LOADING, READY, ERROR} from '../actions'
+
+
 const initialState={
     entries:{
         // 'askwhe':{
@@ -20,22 +23,22 @@ export const rootReducer=(state=initialState, action={type:null})=>{
 
     switch (type) {
 
-        case 'dataError' :
+        case ERROR :
             return {
                 ...state ,
                 status:error
             } ;
 
-        case 'loading' :
+        case LOADING :
             return {
                 ...state ,
-                status:'loading'
+                status:LOADING
             } ;
 
-        case 'loaded' :
+        case READY :
                 return {
                     ...state ,
-                    status:'ready' ,
+                    status:READY ,
                     entries
                 } ;
 
