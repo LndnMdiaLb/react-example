@@ -11,36 +11,32 @@ import thunk from 'redux-thunk'
 
 import { rootReducer } from './reducers'
 
-import { dataLoading, getData } from './actions'
+import { LOADING, READY, ERROR, dataLoading, getData } from './actions'
 
 const store= createStore( rootReducer, compose(applyMiddleware(thunk))) ;
 
-const DataLoader=_=>{
+const DataLoader=({children})=>{
 
-    const LOADING='loading', READY='ready', ERROR='error' ;
-
-    const [ status, setStatus ]= useState(LOADING) ;
+    /* force rerender */
+    const reload= useState(LOADING)[1] ;
 
     useEffect(_=>{
         store.dispatch(dataLoading()) ;
         async function data() {
             const success= await store.dispatch(getData()) ;
             success
-                ? setStatus(READY)
-                : setStatus(ERROR) ;
-        } ;
+                ? reload(READY)
+                : reload(ERROR) ; } ;
         data() ;
     }, []) ;
 
-    useEffect(_=>{
-        console.log(store.getState()) ;
-    }) ;
+    useEffect(_=>{ console.log( store.getState()) ; }) ;
 
     return (
         <Provider store={store}>
-            <div></div>
+            { children }
         </Provider>
-    )
+    ) ;
 }
 
 export default DataLoader ;

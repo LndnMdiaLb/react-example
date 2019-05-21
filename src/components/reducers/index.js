@@ -16,7 +16,7 @@ const initialState={
 }
 
 
-export const rootReducer=(state=initialState, action={type:null})=>{
+export const rootReducer=( state=initialState, action={type:null})=>{
 
     const { type ,
             entries, error }= action ;
