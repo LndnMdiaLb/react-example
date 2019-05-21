@@ -38,6 +38,11 @@ module.exports=(env , argv)=>({
                 exclude: /(node_modules|bower_components)/
             }
         ]
+    } ,
+
+    devServer:{
+        contentBase: path.resolve(__dirname, './dist') ,
+        port:4445
     }
 
     // mode ,
