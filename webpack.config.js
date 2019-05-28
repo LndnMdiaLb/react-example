@@ -42,6 +42,7 @@ module.exports=(env , argv)=>({
 
     devServer:{
         contentBase: path.resolve(__dirname, './dist') ,
+        historyApiFallback: true ,
         port:4445
     }
 
