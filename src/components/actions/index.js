@@ -1,3 +1,5 @@
+import {data} from '../../data/data.js'
+
 /*
     communicate with api and retrieve data
     dispatch results to the redux store
@@ -23,17 +25,30 @@ export const getData=()=> async (dispatch)=>{
         } ;
 
         /* catches */
+
         // const   data= await fetch( path , { method: 'GET' , headers }) ,
         //         json= await data.json() ;
         // const   { entries }= json ;
 
         const entries= await new Promise((res, rej)=>{
             setTimeout(
-                _=>res({a:'a',b:'b',c:'c'})
+                _=>res(data)
                 , 1000 ) ;
         }) ;
+
+        /*
+            create a new property in object entries ; used to create urls
+            and resolve similar refs
+        */
+
+        Object.values(entries).forEach(entry=>{
+            entry.id=entry.title.toLowerCase().replace(/\s+/ig,'-')
+        }) ;
+
         dispatch(dataLoaded(entries)) ;
+
         return true ;
+
     } catch(error) {
 
         /* catches errors both in fetch and data.json() */
